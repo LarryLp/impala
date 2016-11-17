@@ -43,16 +43,17 @@ version: "2"
 
 services:
   master:
-    image: singularities/spark
+    image: LarryLp/spark-docker
     command: start-spark master
     hostname: master
     ports:
+      - "4040:4040"
       - "6066:6066"
       - "7070:7070"
       - "8080:8080"
       - "50070:50070"
   worker:
-    image: singularities/spark
+    image: LarryLp/spark-docker
     command: start-spark worker master
     environment:
       SPARK_WORKER_CORES: 1
