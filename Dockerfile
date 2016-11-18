@@ -25,7 +25,20 @@ RUN mkdir -p "${SPARK_HOME}" \
 COPY spark-env.sh $SPARK_HOME/conf/spark-env.sh
 ENV PATH=$PATH:$SPARK_HOME/bin
 
-# Ports
+# delete duplicate jars
+RUN rm $SPARK_HOME/lib/spark-assembly*jar
+
+# add hdp & hive dependences
+ENV REPO_ADDR=http://192.168.0.91/jars
+RUN wget -r -nd --accept=jar $REPO_ADDR/spark1.6/ $SPARK_HOME/lib
+ 
+# add hive confs
+COPY hive-site.xml $SPARK_HOME/conf/hive-site.xml
+
+# add ip map
+RUN echo "192.168.0.91 node01" >> /etc/hosts
+
+# ports
 EXPOSE 4040 6066 7077 8080 8081
 
 # Copy start script
