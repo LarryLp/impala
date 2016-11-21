@@ -26,7 +26,7 @@ COPY spark-env.sh $SPARK_HOME/conf/spark-env.sh
 ENV PATH=$PATH:$SPARK_HOME/bin
 
 # delete duplicate jars
-RUN rm $SPARK_HOME/lib/spark-assembly*jar
+#RUN rm $SPARK_HOME/lib/spark-assembly*jar
 
 # add hdp & hive dependences
 #ENV REPO_ADDR=http://192.168.0.91/jars
