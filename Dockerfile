@@ -40,9 +40,6 @@ COPY datanucleus-api-jdo-3.2.6.jar $SPARK_HOME/lib/datanucleus-api-jdo-3.2.6.jar
 COPY datanucleus-core-3.2.10.jar $SPARK_HOME/lib/datanucleus-core-3.2.10.jar
 COPY datanucleus-rdbms-3.2.9.jar $SPARK_HOME/lib/datanucleus-rdbms-3.2.9.jar
 
-# add ip map
-RUN echo "192.168.0.91 node01" >> /etc/hosts
-
 # ports
 EXPOSE 4040 6066 7077 8080 8081
 
@@ -60,3 +57,6 @@ RUN echo '#!/usr/bin/env bash' > /usr/bin/master \
   && echo '#!/usr/bin/env bash' > /usr/bin/worker \
   && echo 'start-spark worker $1' >> /usr/bin/worker \
   && chmod +x /usr/bin/worker
+  
+# add ip map
+RUN echo "192.168.0.91 node01" >> /etc/hosts
