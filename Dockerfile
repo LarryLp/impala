@@ -29,11 +29,16 @@ ENV PATH=$PATH:$SPARK_HOME/bin
 RUN rm $SPARK_HOME/lib/spark-assembly*jar
 
 # add hdp & hive dependences
-ENV REPO_ADDR=http://192.168.0.91/jars
-RUN wget -r -nd --accept=jar $REPO_ADDR/spark1.6/ $SPARK_HOME/lib
+#ENV REPO_ADDR=http://192.168.0.91/jars
+#RUN wget -r -nd --accept=jar $REPO_ADDR/spark1.6/ $SPARK_HOME/lib
  
 # add hive confs
 COPY hive-site.xml $SPARK_HOME/conf/hive-site.xml
+
+# add hive assembly jars
+COPY datanucleus-api-jdo-3.2.6.jar $SPARK_HOME/lib/datanucleus-api-jdo-3.2.6.jar
+COPY datanucleus-core-3.2.10.jar $SPARK_HOME/lib/datanucleus-core-3.2.10.jar
+COPY datanucleus-rdbms-3.2.9.jar $SPARK_HOME/lib/datanucleus-rdbms-3.2.9.jar
 
 # add ip map
 RUN echo "192.168.0.91 node01" >> /etc/hosts
