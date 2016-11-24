@@ -2,7 +2,7 @@ FROM singularities/hadoop:2.7
 MAINTAINER Singularities
 
 # Version
-ENV SPARK_VERSION=1.6.2
+ENV SPARK_VERSION=1.6.3
 
 # Set home
 ENV SPARK_HOME=/usr/local/spark-$SPARK_VERSION
@@ -25,8 +25,24 @@ RUN mkdir -p "${SPARK_HOME}" \
 COPY spark-env.sh $SPARK_HOME/conf/spark-env.sh
 ENV PATH=$PATH:$SPARK_HOME/bin
 
-# Ports
-EXPOSE 6066 7077 8080 8081
+# delete duplicate jars
+#RUN rm $SPARK_HOME/lib/spark-assembly*jar
+
+# add hdp & hive dependences
+#ENV REPO_ADDR=http://192.168.0.91/jars
+#RUN wget -r -nd --accept=jar $REPO_ADDR/spark1.6/ $SPARK_HOME/lib
+ 
+# add hive confs
+COPY hive-site.xml $SPARK_HOME/conf/hive-site.xml
+
+# add hive assembly jars
+COPY datanucleus-api-jdo-3.2.6.jar $SPARK_HOME/lib/datanucleus-api-jdo-3.2.6.jar
+COPY datanucleus-core-3.2.10.jar $SPARK_HOME/lib/datanucleus-core-3.2.10.jar
+COPY datanucleus-rdbms-3.2.9.jar $SPARK_HOME/lib/datanucleus-rdbms-3.2.9.jar
+COPY mysql-connector-java.jar $SPARK_HOME/lib/mysql-connector-java.jar
+
+# ports
+EXPOSE 4040 6066 7077 8080 8081
 
 # Copy start script
 COPY start-spark /opt/util/bin/start-spark
@@ -42,3 +58,6 @@ RUN echo '#!/usr/bin/env bash' > /usr/bin/master \
   && echo '#!/usr/bin/env bash' > /usr/bin/worker \
   && echo 'start-spark worker $1' >> /usr/bin/worker \
   && chmod +x /usr/bin/worker
+  
+# add ip map
+RUN echo "192.168.0.91 node01" >> /etc/hosts
