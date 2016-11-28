@@ -16,7 +16,8 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /home/spark \
-  && chmod 777 -R /home/spark
+  && chmod 777 -R /home/spark \
+  && echo 'HOME=/home/spark' >> /etc/default/useradd
 
 # Install Spark
 RUN mkdir -p "${SPARK_HOME}" \
