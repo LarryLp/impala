@@ -8,12 +8,19 @@ if [[ -z "${HDFS_USER}" ]]; then
   chown spark:spark /home/spark
 fi
 
-if [[ "${1}" = 'master' ]]; then  
+mkdir /home/spark
+chown spark:spark /home/spark
+  
+if [[ "${1}" = 'master' ]]; then
+  mkdir /home/spark
+  chown spark:spark /home/spark
   # Start Hadoop NameNode
   start-hadoop namenode daemon
   # Start Spark Master
   spark-class org.apache.spark.deploy.master.Master -h $(hostname)
-elif [[ "${1}" = 'worker' ]]; then  
+elif [[ "${1}" = 'worker' ]]; then
+  mkdir /home/spark
+  chown spark:spark /home/spark
   # Start Hadoop DataNode
   start-hadoop datanode $2 daemon
   # Wait for the master to start
