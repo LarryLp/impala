@@ -26,7 +26,7 @@ COPY spark-env.sh $SPARK_HOME/conf/spark-env.sh
 ENV PATH=$PATH:$SPARK_HOME/bin
 
 # Ports
-EXPOSE 6066 7077 8080 8081
+EXPOSE 4040 6066 7077 8080 8081
 
 # Copy start script
 COPY start-spark /opt/util/bin/start-spark
