@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# create home dir
+mkdir /home/spark
 
 # Set default HDFS user if not set
 if [[ -z "${HDFS_USER}" ]]; then
