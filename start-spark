@@ -5,6 +5,7 @@ useradd spark
 mkdir /home/spark
 chown spark:spark /home/spark
 
+echo 'ok'
 # Set default HDFS user if not set
 if [[ -z "${HDFS_USER}" ]]; then
   export HDFS_USER=spark
