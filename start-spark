@@ -8,6 +8,8 @@ if [[ -z "${HDFS_USER}" ]]; then
   export HDFS_USER=spark
 fi
 
+chown spark:spark /home/spark
+
 if [[ "${1}" = 'master' ]]; then
   # Start Hadoop NameNode
   start-hadoop namenode daemon
