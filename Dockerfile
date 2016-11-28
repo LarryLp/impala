@@ -16,8 +16,8 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/*
 
 # add user spark
-RUN mkdir /home/spark \
-  && chown spark:spark /home/spark
+#RUN mkdir /home/spark \
+#  && chown spark:spark /home/spark
 
 # Install Spark
 RUN mkdir -p "${SPARK_HOME}" \
