@@ -15,6 +15,10 @@ RUN apt-get update \
   && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
+# add user spark
+RUN mkdir -p /home/spark \
+  && chown spark:spark /home/spark
+
 # Install Spark
 RUN mkdir -p "${SPARK_HOME}" \
   && export ARCHIVE=spark-$SPARK_VERSION-bin-without-hadoop.tgz \
@@ -26,7 +30,7 @@ COPY spark-env.sh $SPARK_HOME/conf/spark-env.sh
 ENV PATH=$PATH:$SPARK_HOME/bin
 
 # Ports
-EXPOSE 6066 7077 8080 8081
+EXPOSE 4040 6066 7077 8080 8081
 
 # Copy start script
 COPY start-spark /opt/util/bin/start-spark
