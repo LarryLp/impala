@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
-# create home dir
+# add user spark
+useradd spark
 mkdir /home/spark
+chown spark:spark /home/spark
 
 # Set default HDFS user if not set
 if [[ -z "${HDFS_USER}" ]]; then
   export HDFS_USER=spark
 fi
 
-if [[ "${1}" = 'master' ]]; then
-  chown spark:spark /home/spark
+if [[ "${1}" = 'master' ]]; then  
   # Start Hadoop NameNode
   start-hadoop namenode daemon
   # Start Spark Master
   spark-class org.apache.spark.deploy.master.Master -h $(hostname)
-elif [[ "${1}" = 'worker' ]]; then
-  chown spark:spark /home/spark
+elif [[ "${1}" = 'worker' ]]; then  
   # Start Hadoop DataNode
   start-hadoop datanode $2 daemon
   # Wait for the master to start
