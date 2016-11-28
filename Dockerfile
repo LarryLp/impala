@@ -15,10 +15,6 @@ RUN apt-get update \
   && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-# add user spark
-RUN mkdir -p /home/spark \
-  && chown spark:spark /home/spark
-
 # Install Spark
 RUN mkdir -p "${SPARK_HOME}" \
   && export ARCHIVE=spark-$SPARK_VERSION-bin-without-hadoop.tgz \
