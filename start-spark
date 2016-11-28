@@ -1,18 +1,30 @@
 #!/usr/bin/env bash
-# create home dir
-mkdir /home/spark
+
 
 # Set default HDFS user if not set
 if [[ -z "${HDFS_USER}" ]]; then
   export HDFS_USER=spark
+  mkdir /home/spark
+  chown spark:spark /home/spark
 fi
 
+mkdir /home/spark
+chown spark:spark /home/spark
+  
 if [[ "${1}" = 'master' ]]; then
+  mkdir /home/spark
+  chown spark:spark /home/spark
   # Start Hadoop NameNode
   start-hadoop namenode daemon
   # Start Spark Master
+  useradd spark
+  mkdir /home/spark
+  chown spark:spark /home/spark
   spark-class org.apache.spark.deploy.master.Master -h $(hostname)
+  
 elif [[ "${1}" = 'worker' ]]; then
+  mkdir /home/spark
+  chown spark:spark /home/spark
   # Start Hadoop DataNode
   start-hadoop datanode $2 daemon
   # Wait for the master to start
@@ -20,6 +32,9 @@ elif [[ "${1}" = 'worker' ]]; then
     sleep 2;
   done;
   # Start Spark Worker
+  useradd spark
+  mkdir /home/spark
+  chown spark:spark /home/spark
   spark-class org.apache.spark.deploy.worker.Worker spark://$2:7077
 else
   echo "Invalid command '${1}'" >&2
