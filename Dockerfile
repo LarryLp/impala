@@ -15,7 +15,7 @@ RUN apt-get update \
   && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /home/spark
+RUN mkdir -p /home/spark
 
 # Install Spark
 RUN mkdir -p "${SPARK_HOME}" \
