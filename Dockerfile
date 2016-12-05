@@ -1,44 +1,23 @@
-FROM singularities/hadoop:2.7
-MAINTAINER Singularities
+FROM parana/centos7
 
-# Version
-ENV SPARK_VERSION=2.0.1
+# Based on centos:7.2.1511 Public Image
 
-# Set home
-ENV SPARK_HOME=/usr/local/spark-$SPARK_VERSION
+MAINTAINER "larry king" <jiangguoqing@starts.org.cn>`
 
-# Install dependencies
-RUN apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install \
-    -yq --no-install-recommends  \
-      python python3 \
-  && apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+# set cloudera repository
+RUN echo -e "# Packages for Cloudera's Distribution for Hadoop, Version 5, on RedHat or CentOS 7 x86_64\n[cloudera-cdh5]\nname=Cloudera's Distribution for Hadoop, Version 5\nbaseurl=https://archive.cloudera.com/cdh5/redhat/7/x86_64/cdh/5/\ngpgkey =https://archive.cloudera.com/cdh5/redhat/7/x86_64/cdh/RPM-GPG-KEY-cloudera\ngpgcheck = 1" > /etc/yum.repos.d/cloudera.repo
+RUN yum update & \
+    yum install -y vim & \
+    yum install -y net-tools
 
-# Install Spark
-RUN mkdir -p "${SPARK_HOME}" \
-  && export ARCHIVE=spark-$SPARK_VERSION-bin-without-hadoop.tgz \
-  && export DOWNLOAD_PATH=apache/spark/spark-$SPARK_VERSION/$ARCHIVE \
-  && curl -sSL https://mirrors.ocf.berkeley.edu/$DOWNLOAD_PATH | \
-    tar -xz -C $SPARK_HOME --strip-components 1 \
-  && rm -rf $ARCHIVE
-COPY spark-env.sh $SPARK_HOME/conf/spark-env.sh
-ENV PATH=$PATH:$SPARK_HOME/bin
+# install jdk1.8
+RUN yum install -y java-1.8.0-openjdk
 
-# Ports
-EXPOSE 6066 7077 8080 8081
+# install latest version of impala
+RUN yum install -y impala impala-server impala-state-store impala-catalog
 
-# Copy start script
-COPY start-spark /opt/util/bin/start-spark
+# set JAVA_HOME 
+RUN echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.111-1.b15.el7_2.x86_64/" >> bigtop-utils
 
-# Fix environment for other users
-RUN echo "export SPARK_HOME=$SPARK_HOME" >> /etc/bash.bashrc \
-  && echo 'export PATH=$PATH:$SPARK_HOME/bin'>> /etc/bash.bashrc
 
-# Add deprecated commands
-RUN echo '#!/usr/bin/env bash' > /usr/bin/master \
-  && echo 'start-spark master' >> /usr/bin/master \
-  && chmod +x /usr/bin/master \
-  && echo '#!/usr/bin/env bash' > /usr/bin/worker \
-  && echo 'start-spark worker $1' >> /usr/bin/worker \
-  && chmod +x /usr/bin/worker
+CMD [ "/bin/bash" ]
