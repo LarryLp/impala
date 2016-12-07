@@ -1,4 +1,4 @@
-FROM parana/centos7
+FROM centos
 
 # Based on centos:7.2.1511 Public Image
 
