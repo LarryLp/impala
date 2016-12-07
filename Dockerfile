@@ -6,9 +6,6 @@ MAINTAINER "larry king" <jiangguoqing@starts.org.cn>`
 
 # set cloudera repository
 RUN echo -e "# Packages for Cloudera's Distribution for Hadoop, Version 5, on RedHat or CentOS 7 x86_64\n[cloudera-cdh5]\nname=Cloudera's Distribution for Hadoop, Version 5\nbaseurl=https://archive.cloudera.com/cdh5/redhat/7/x86_64/cdh/5/\ngpgkey =https://archive.cloudera.com/cdh5/redhat/7/x86_64/cdh/RPM-GPG-KEY-cloudera\ngpgcheck = 1" > /etc/yum.repos.d/cloudera.repo
-RUN yum update & \
-    yum install -y vim & \
-    yum install -y net-tools
 
 # install jdk1.8
 RUN yum install -y java-1.8.0-openjdk
