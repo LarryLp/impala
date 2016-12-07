@@ -19,5 +19,23 @@ RUN yum install -y impala impala-server impala-state-store impala-catalog impala
 # set JAVA_HOME 
 RUN echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.111-1.b15.el7_2.x86_64" >> /etc/default/bigtop-utils
 
+# add hadoop hive configure
+COPY config/core-site.xml /etc/impala/conf/core-site.xml
+COPY config/hive-site.xml /etc/impala/conf/hive-site.xml
+COPY config/hdfs-site.xml /etc/impala/conf/hdfs-site.xml
+
+# add mysql-connector-jar
+COPY mysql-connector-jar/mysql-connector-java.jar /usr/share/java/mysql-connector-java.jar
+
+
+# add metadata info,you should modify it according to your own situation 
+RUN echo "192.168.0.91 node01" >> /etc/hosts
+
+# deploy container ip address
+RUN echo 'IMPALA_CATALOG_SERVICE_HOST='$(hostname -I|awk '{print $1}') > /etc/default/impala
+RUN echo 'IMPALA_STATE_STORE_HOST='$(hostname -I|awk '{print $1}') >> /etc/default/impala
+
+# add impala config
+RUN cat config/impala >> /etc/default/impala
 
 CMD [ "/bin/bash" ]
