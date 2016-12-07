@@ -14,10 +14,10 @@ RUN yum update & \
 RUN yum install -y java-1.8.0-openjdk
 
 # install latest version of impala
-RUN yum install -y impala impala-server impala-state-store impala-catalog
+RUN yum install -y impala impala-server impala-state-store impala-catalog impala-shell
 
 # set JAVA_HOME 
-RUN echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.111-1.b15.el7_2.x86_64/" >> /etc/default/bigtop-utils
+RUN echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.111-1.b15.el7_2.x86_64" >> /etc/default/bigtop-utils
 
 
 CMD [ "/bin/bash" ]
