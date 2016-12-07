@@ -33,6 +33,8 @@ RUN echo 'IMPALA_CATALOG_SERVICE_HOST='$(hostname -I|awk '{print $1}') > /etc/de
 RUN echo 'IMPALA_STATE_STORE_HOST='$(hostname -I|awk '{print $1}') >> /etc/default/impala
 
 # add impala config
-RUN cat config/impala >> /etc/default/impala
+COPY config/impala /etc/default/config.txt
+RUN cat /etc/default/config.txt >> /etc/default/impala && \
+    rm -rf /etc/default/config.txt
 
 CMD [ "/bin/bash" ]
