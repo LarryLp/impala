@@ -10,6 +10,10 @@ RUN echo -e "# Packages for Cloudera's Distribution for Hadoop, Version 5, on Re
 # install jdk1.8
 RUN yum install -y java-1.8.0-openjdk
 
+# install vim & net-tools
+RUN yum install -y vim && \
+  yum install -y net-tools
+  
 # install latest version of impala
 RUN yum install -y impala impala-server impala-state-store impala-catalog impala-shell
 
@@ -24,17 +28,12 @@ COPY config/hdfs-site.xml /etc/impala/conf/hdfs-site.xml
 # add mysql-connector-jar
 COPY mysql-connector-jar/mysql-connector-java.jar /usr/share/java/mysql-connector-java.jar
 
-
-# add metadata info,you should modify it according to your own situation 
-RUN echo "192.168.0.91 node01" >> /etc/hosts
-
-# set container ip address
-RUN echo 'IMPALA_CATALOG_SERVICE_HOST='$(hostname -I|awk '{print $1}')|col -b > /etc/default/impala
-RUN echo 'IMPALA_STATE_STORE_HOST='$(hostname -I|awk '{print $1}')|col -b >> /etc/default/impala
-
-# add impala config
+# move impala configure base info
 COPY config/impala /etc/default/config.txt
-RUN cat /etc/default/config.txt >> /etc/default/impala && \
-    rm -rf /etc/default/config.txt
+
+# depoly bash script of impala configure info
+RUN mkdir /impala
+COPY depoly_impala_config.sh /impala/depoly_impala_config.sh && \
+  chmod a+x /impala/depoly_impala_config.sh
 
 CMD [ "/bin/bash" ]
