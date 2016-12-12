@@ -33,8 +33,8 @@ COPY config/impala /etc/default/config.txt
 
 # depoly bash script of impala configure info
 RUN mkdir /impala
-COPY depoly_impala_config.sh /impala/depoly_impala_config.sh && \
-  chmod a+x /impala/depoly_impala_config.sh
+COPY depoly_impala_config.sh /impala/depoly_impala_config.sh
+RUN chmod a+x /impala/depoly_impala_config.sh
   
 # CMD
 CMD [ "/bin/bash" ]
