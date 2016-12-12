@@ -28,9 +28,9 @@ COPY mysql-connector-jar/mysql-connector-java.jar /usr/share/java/mysql-connecto
 # add metadata info,you should modify it according to your own situation 
 RUN echo "192.168.0.91 node01" >> /etc/hosts
 
-# deploy container ip address
-RUN echo 'IMPALA_CATALOG_SERVICE_HOST='$(hostname -I|awk '{print $1}') > /etc/default/impala
-RUN echo 'IMPALA_STATE_STORE_HOST='$(hostname -I|awk '{print $1}') >> /etc/default/impala
+# set container ip address
+RUN echo 'IMPALA_CATALOG_SERVICE_HOST='$(hostname -I|awk '{print $1}')|col -b > /etc/default/impala
+RUN echo 'IMPALA_STATE_STORE_HOST='$(hostname -I|awk '{print $1}')|col -b >> /etc/default/impala
 
 # add impala config
 COPY config/impala /etc/default/config.txt
