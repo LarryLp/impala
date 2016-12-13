@@ -9,3 +9,4 @@ Step 1: depoly impala configs
 
 ===============================================================================
 you can get something like this:
+![ABC](https://github.com/LarryLp/impala/blob/2.7/images/depoly_impala_config.png) 
