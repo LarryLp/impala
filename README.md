@@ -1,5 +1,5 @@
 # impala
-An Apache impala Docker image, which include hive dependences, thus it can query hive tables directly.
+This is An Apache impala Docker image , which is latest version, include hive dependences, thus it can query hive tables directly.
 
 pleause follow the steps below to use impala application:
 
