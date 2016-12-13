@@ -5,6 +5,7 @@ pleause follow the steps below to use impala application:
 
 Step 0: modify your hive metadata host info in bash script:/impala/depoly_impala_config.sh
 ![ABC](https://github.com/LarryLp/impala/blob/2.7/images/hive metadata.png)
+
 ATTENTION: ip address in statement echo "192.168.0.91 node01" >> /etc/hosts should be adjusted!
 
 Step 1: depoly impala configs
