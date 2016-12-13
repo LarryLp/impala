@@ -29,3 +29,8 @@ sudo service impala-catalog start
 /// start impala-server
 sudo service impala-server start
 ```
+
+finally, you can use impala latest
+![ABC](https://github.com/LarryLp/impala/blob/2.7/images/impala catalog.png)
+
+![ABC](https://github.com/LarryLp/impala/blob/2.7/images/impala backend.png)
