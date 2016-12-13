@@ -34,3 +34,6 @@ Step 3: you can use impala latest
 ![ABC](https://github.com/LarryLp/impala/blob/2.7/images/impala catalog.png)
 
 ![ABC](https://github.com/LarryLp/impala/blob/2.7/images/impala backend.png)
+
+also impala shell:
+![ABC](https://github.com/LarryLp/impala/blob/2.7/images/impala shell.png)
