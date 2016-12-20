@@ -19,7 +19,7 @@ RUN echo "Generating jdk-8u101-linux-x64.tar.tgz file" && \
     cat x* > jdk-8u101-linux-x64.tar.tgz && \
     rm -rf x* && \
     tar -xzf jdk-8u101-linux-x64.tar.tgz && \
-    rm -rf jdk-8u101-linux-x64.tar.tgz && \   
+    rm -rf jdk-8u101-linux-x64.tar.tgz  
 
 # install vim & net-tools
 RUN yum install -y vim && \
