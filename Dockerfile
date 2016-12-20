@@ -18,7 +18,7 @@ RUN yum install -y vim && \
 RUN yum install -y impala impala-server impala-state-store impala-catalog impala-shell
 
 # set JAVA_HOME 
-RUN echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.111-1.b15.el7_3.x86_64/jre" >> /etc/default/bigtop-utils
+RUN echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-2.8.0.111-1.b15.el7_3.x86_64/jre" >> /etc/default/bigtop-utils
 
 # add hadoop hive configure
 COPY config/core-site.xml /etc/impala/conf/core-site.xml
