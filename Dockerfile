@@ -8,7 +8,7 @@ MAINTAINER "larry king" <jiangguoqing@starts.org.cn>`
 RUN echo -e "# Packages for Cloudera's Distribution for Hadoop, Version 5, on RedHat or CentOS 7 x86_64\n[cloudera-cdh5]\nname=Cloudera's Distribution for Hadoop, Version 5\nbaseurl=https://archive.cloudera.com/cdh5/redhat/7/x86_64/cdh/5/\ngpgkey =https://archive.cloudera.com/cdh5/redhat/7/x86_64/cdh/RPM-GPG-KEY-cloudera\ngpgcheck = 1" > /etc/yum.repos.d/cloudera.repo
 
 # install jdk1.8
-RUN yum install -y java-1.8.0-openjdk
+RUN yum install -y java-1.8.0-openjdk-1.8.0.111
 
 # install vim & net-tools
 RUN yum install -y vim && \
@@ -18,7 +18,7 @@ RUN yum install -y vim && \
 RUN yum install -y impala impala-server impala-state-store impala-catalog impala-shell
 
 # set JAVA_HOME 
-RUN echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.111-1.b15.el7_2.x86_64" >> /etc/default/bigtop-utils
+RUN echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.111-1.b15.el7_3.x86_64/jre" >> /etc/default/bigtop-utils
 
 # add hadoop hive configure
 COPY config/core-site.xml /etc/impala/conf/core-site.xml
